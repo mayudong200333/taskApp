@@ -48,6 +48,7 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         tableView.delegate=self
         tableView.dataSource=self
         searchbar.delegate=self
+        searchbar.showsCancelButton=true
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: "cellSegue", sender: nil)
@@ -97,6 +98,7 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tableView.reloadData()
+      
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
@@ -104,6 +106,13 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         tableView.reloadData()
         
     }
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchbar.text=""
+        taskArray=realm.objects(Task.self).sorted(byKeyPath: "date", ascending: false)
+        tableView.reloadData()
+    }
+   
+    
 }
 
 
